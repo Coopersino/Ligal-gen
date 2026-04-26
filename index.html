@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Генератор HTML лигала</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>Генератор HTML лигала</h1>
+          <p class="meta" id="loadStatus">Загрузка шаблона и правил</p>
+        </div>
+        <div class="actions">
+          <button class="secondary" id="resetBtn" type="button">Сбросить</button>
+          <button class="primary" id="generateBtn" type="button">Сгенерировать</button>
+        </div>
+      </header>
+
+      <section class="workspace" aria-label="Рабочая область">
+        <form class="editor-panel" id="legalForm">
+          <div class="mode-switch" role="tablist" aria-label="Режим генерации">
+            <button class="mode-button active" id="textModeBtn" type="button" data-mode="text" role="tab" aria-selected="true">Текст</button>
+            <button class="mode-button" id="pdfModeBtn" type="button" data-mode="pdf" role="tab" aria-selected="false">PDF</button>
+          </div>
+
+          <div class="pdf-panel" id="pdfPanel" hidden>
+            <label class="field file-field">
+              <span>PDF-файл</span>
+              <input id="pdfInput" name="pdfInput" type="file" accept="application/pdf">
+            </label>
+            <div class="button-row">
+              <button class="secondary" id="extractPdfBtn" type="button">Найти лигалы</button>
+            </div>
+            <p class="meta pdf-status" id="pdfStatus">PDF.js загружается</p>
+          </div>
+
+          <label class="field compact">
+            <span>Номер сноски</span>
+            <input id="footnoteInput" name="footnote" type="text" value="1" autocomplete="off">
+          </label>
+
+          <label class="field text-field">
+            <span>Текст лигала</span>
+            <textarea id="sourceText" name="sourceText" spellcheck="true"></textarea>
+          </label>
+
+          <div class="button-row">
+            <button class="secondary" id="copyInputBtn" type="button">Копировать текст</button>
+            <button class="secondary" id="pasteSampleBtn" type="button">Пример</button>
+          </div>
+        </form>
+
+        <section class="result-panel" aria-label="Результат">
+          <div class="result-header">
+            <h2>HTML-фрагмент</h2>
+            <button class="secondary" id="copyHtmlBtn" type="button">Копировать HTML</button>
+          </div>
+          <textarea id="htmlOutput" class="output" readonly spellcheck="false"></textarea>
+          <div class="preview-wrap">
+            <div class="preview-label">Предпросмотр</div>
+            <table id="previewTable" role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"></table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="app.js?v=source-line-breaks-1" defer></script>
+  </body>
+</html>

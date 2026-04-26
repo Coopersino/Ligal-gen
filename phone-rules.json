@@ -1,0 +1,23 @@
+{
+  "description": "Правила замены телефонных номеров на email-safe HTML-ссылки.",
+  "linkAttributes": {
+    "className": "link",
+    "border": "0",
+    "style": "margin:0;text-decoration:none;font-family:Helvetica,Arial,sans-serif;white-space:nowrap;color:#7D838A;",
+    "target": "_blank"
+  },
+  "phones": [
+    {
+      "text": "0321",
+      "href": "https://eimage.sendsay.ru/image/sberbank333/web_content/calling/0321.html"
+    },
+    {
+      "text": "8 800 555-57-77",
+      "href": "https://image.sendsay.ru/image/sberbank333/web_content/calling/88005555777.html"
+    },
+    {
+      "text": "8 800 555-55-50",
+      "href": "https://image.sendsay.ru/image/sberbank333/web_content/calling/88005555550.html"
+    }
+  ]
+}
