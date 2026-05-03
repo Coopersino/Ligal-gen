@@ -452,9 +452,49 @@ function buildLegalBlocksFromLines(lines) {
   }
 
   return blocks
-    .map((block) => cleanLegalBlock(block.join(" ")))
+    .map(cleanLegalBlockWithSourceLines)
     .filter((block) => getLegalTextScore(block) > 0)
     .join("\n\n");
+}
+
+function cleanLegalBlockWithSourceLines(lines) {
+  return mergePdfContinuationLines(lines)
+    .map(cleanLegalBlock)
+    .filter(Boolean)
+    .join("\n");
+}
+
+function mergePdfContinuationLines(lines) {
+  const merged = [];
+
+  for (const rawLine of lines) {
+    const line = String(rawLine).trim();
+
+    if (!line) {
+      continue;
+    }
+
+    const previous = merged[merged.length - 1];
+
+    if (previous && shouldMergePdfLine(previous, line)) {
+      merged[merged.length - 1] = `${previous} ${line}`;
+      continue;
+    }
+
+    merged.push(line);
+  }
+
+  return merged;
+}
+
+function shouldMergePdfLine(previous, current) {
+  return (
+    /\(https?:\/\/[^)]*$/i.test(previous) ||
+    /https?:\/\/[^)]*$/i.test(previous) ||
+    /=\s*$/i.test(previous) ||
+    /^\s*=/.test(current) ||
+    (/(?:^|\s)(?:на\s+сайте|сайт)(?:\s+[A-Za-zА-Яа-яЁё0-9_.-]+){0,3}\s*$/iu.test(previous) && /^\(?\s*https?:\/\//i.test(current))
+  );
 }
 
 function cleanLegalBlock(text) {
